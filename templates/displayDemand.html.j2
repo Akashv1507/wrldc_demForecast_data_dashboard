@@ -1,0 +1,92 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}Display Demand{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1>Display Demand Data</h1>
+
+<form method="post">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="startDate">Start Date</label>
+      <input type="date" class="form-control" name = "startDate" id="startDate" >
+    </div>
+    <div class="form-group col-md-6">
+      <label for="endDate">End Date</label>
+      <input type="date" name = "endDate" class="form-control" id="endDate">
+    </div>
+ </div>
+
+ <div class="form-row">
+    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true">
+      {# <label for="inputState">State</label> #}
+      <select id="entityTag" name ="entityTag" class="form-control" placeholder="Select Constituents" multiple>
+        <option value="WRLDCMP.SCADA1.A0047000" >WR-Total</option>
+        <option  value="WRLDCMP.SCADA1.A0046980">Maharastra</option>
+        <option  value="WRLDCMP.SCADA1.A0046957">Gujarat</option>
+        <option  value="WRLDCMP.SCADA1.A0046978">Madhya Pradesh</option>
+        <option  value= "WRLDCMP.SCADA1.A0046945">Chattisgarh</option>
+        <option  value="WRLDCMP.SCADA1.A0046962">Goa</option>
+        <option  value="WRLDCMP.SCADA1.A0046948">DD</option>
+        <option  value="WRLDCMP.SCADA1.A0046953">DNH</option>
+      </select>
+    </div>
+    <div class="form-group col-md-2">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="demandOptions" id="blockwiseDemand" value="blockwise" checked>
+        <label class="form-check-label" for="blockwiseDemand">Blockwise</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="demandOptions" id="minwiseDemand" value="minwise">
+        <label class="form-check-label" for="minwiseDemand">Minwise</label>
+      </div>
+    </div>
+ </div>
+ <button type="submit" class="btn btn-primary">Show</button>
+</form>
+
+{% if method == 'POST' %}
+{% if data %}
+<div id='resDiv' class="mt-3 text-dark">
+    <table id="displayDemand" class="table table-bordered table-hover display w-auto" style="width:100%">
+        <thead>
+            <tr>
+                {% for colName in columnNameList %}
+                <th>{{colName}}</th>
+                {% endfor %}
+                
+            </tr>
+        </thead>    
+        <tbody>
+            {% for row in data %}
+            <tr>
+                {% for value in row %}
+                  {% if value is string %}
+                    <td>{{value}}</td>
+                  {% else %}
+                    <td>{{value|round|int}}</td>
+                  {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}    
+        </tbody>
+    </table>
+
+</div>
+{% else %}
+<div class="alert alert-danger mt-5" >
+  <strong>Something went wrong</strong> Demand Data Display Unsuccessfull
+</div>
+{% endif %}
+{% endif %}
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='displayDemand/index.js') }}"></script>
+    
+{% endblock %}

@@ -14,14 +14,14 @@ app = Flask(__name__)
 configDict = getAppConfigDict()
 
 # Set the secret key to some random bytes
-# app.secret_key = configDict['flaskSecret']
+app.secret_key = configDict['flaskSecret']
 
 #making objects of fetchers
 conString = configDict['con_string_mis_warehouse']
-
 obj_demandFetchRepo = DemandFetchRepo(conString)
 obj_forecastFetchRepo = ForecastFetchRepo(conString)
 obj_revisionwiseError = RevisionwiseErrorFetchRepo(conString)
+
 @app.route('/')
 @app.route('/display')
 def hello():
@@ -114,5 +114,6 @@ def displayrevisionwiseError():
 
 
 if __name__ == '__main__':
-    app.run(host="localhost",  debug=True)
-    app.run(debug=True)
+    serverMode: str = configDict['mode']
+    if serverMode.lower() == 'd':
+        app.run(host="localhost", port=int(configDict['flaskPort']), debug=True)

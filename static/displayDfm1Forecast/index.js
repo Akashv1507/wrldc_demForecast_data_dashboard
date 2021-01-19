@@ -23,7 +23,7 @@ $(document).ready(function(){
     });
 
 $(document).ready(function() {
-    $('#displayForecast').DataTable({
+    $('#displayDfm1Forecast').DataTable({
         dom: 'Bfrtip',
         
         lengthMenu: [ 96, 192, 188],

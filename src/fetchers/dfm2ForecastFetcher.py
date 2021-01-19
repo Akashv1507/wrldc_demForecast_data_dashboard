@@ -4,7 +4,7 @@ import datetime as dt
 from typing import List, Tuple, Union
 
 
-class ForecastFetchRepo():
+class Dfm2ForecastFetchRepo():
     """block wise forecast fetch repository
     """
 
@@ -64,7 +64,7 @@ class ForecastFetchRepo():
             try:
                 cur = connection.cursor()
                 #fetching from blockwise table or minwise table based on demand type selection from radio button
-                fetch_sql = f"""SELECT time_stamp, revision_no, entity_tag, forecasted_demand_value FROM forecast_revision_store 
+                fetch_sql = f"""SELECT time_stamp, revision_no, entity_tag, forecasted_demand_value FROM dfm2_forecast_revision_store 
                 WHERE time_stamp BETWEEN TO_DATE(:start_time,'YYYY-MM-DD HH24:MI:SS') and TO_DATE(:end_time,'YYYY-MM-DD HH24:MI:SS') 
                 and entity_tag in {entityList}and revision_no in {revisionNoList} ORDER BY entity_tag,revision_no, time_stamp"""
                 cur.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD HH24:MI:SS' ")

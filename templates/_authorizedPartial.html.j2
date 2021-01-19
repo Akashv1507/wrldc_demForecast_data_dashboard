@@ -8,17 +8,24 @@
     </li>
 {% endif %}
 <!-- Nav Item - Dashboard -->
+
 <li class="nav-item">
     <a class="nav-link" href='/display/demand'>
         <i class="fas fa-th-large"></i>
         <span>Display Demand</span>
     </a>
 </li>
-<li class="nav-item">
-    <a class="nav-link" href='/display/forecast'>
+<li class="nav-item ">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseForecast" aria-expanded="false" aria-controls="collapseForecast">
         <i class="fas fa-th-large"></i>
-        <span>Display Forecast</span>
+        <span>Forecast</span>
     </a>
+    <div id="collapseForecast" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
+        <div class="bg-white py-2 collapse-inner rounded">
+        <a class="collapse-item" href="/display/dfm1/forecast">Mathematical Model<br/> Forecast</a>
+        <a class="collapse-item" href="/display/dfm2/forecast">MLR Model <br/>Forecast</a>
+        </div>
+    </div>
 </li>
 
 <li class="nav-item">

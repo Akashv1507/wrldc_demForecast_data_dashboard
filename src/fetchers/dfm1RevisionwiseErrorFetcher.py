@@ -4,7 +4,7 @@ import datetime as dt
 from typing import List, Tuple, Union
 
 
-class RevisionwiseErrorFetchRepo():
+class Dfm1RevisionwiseErrorFetchRepo():
     """revision wise error fetch repository
     """
 
@@ -53,7 +53,7 @@ class RevisionwiseErrorFetchRepo():
             try:
                 cur = connection.cursor()
                 #fetching from blockwise table or minwise table based on demand type selection from radio button
-                fetch_sql = f"""SELECT date_key,entity_tag, revision_no,mae,mape,rmse,rmse_percentage  FROM revisionwise_error_store 
+                fetch_sql = f"""SELECT date_key,entity_tag, revision_no,mape,rmse_percentage  FROM revisionwise_error_store 
                 WHERE date_key BETWEEN TO_DATE(:start_time,'YYYY-MM-DD') and TO_DATE(:end_time,'YYYY-MM-DD') 
                 and entity_tag in {entityList}and revision_no in {revisionNoList} ORDER BY date_key,entity_tag,revision_no"""
                 cur.execute("ALTER SESSION SET NLS_DATE_FORMAT = 'YYYY-MM-DD' ")

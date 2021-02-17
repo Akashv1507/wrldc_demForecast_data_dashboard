@@ -8,11 +8,11 @@
 {% block content %}
 <h1>Display Demand Data</h1>
 
-<form method="post">
+<form method="post" id="myForm" onsubmit="return validateForm()" name="myForm">
   <div class="form-row">
     <div class="form-group col-md-6">
       <label for="startDate">Start Date</label>
-      <input type="date" class="form-control" name = "startDate" id="startDate" >
+      <input type="date" class="form-control" name = "startDate" id="startDate" required>
     </div>
     <div class="form-group col-md-6">
       <label for="endDate">End Date</label>
@@ -20,8 +20,8 @@
     </div>
  </div>
 
- <div class="form-row">
-    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true">
+ <div class="form-row" >
+    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true" >
       {# <label for="inputState">State</label> #}
       <select id="entityTag" name ="entityTag" class="form-control" placeholder="Select Constituents" multiple>
         <option value="WRLDCMP.SCADA1.A0047000" >WR-Total</option>
@@ -47,6 +47,7 @@
  </div>
  <button type="submit" class="btn btn-primary">Show</button>
 </form>
+<div id="errorDiv" class="mt-4" style="color:rgb(139,0,0);" ></div>
 
 {% if method == 'POST' %}
 {% if data %}

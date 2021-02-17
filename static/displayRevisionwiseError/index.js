@@ -1,18 +1,18 @@
 $(document).ready(function() {
-
-    var multipleCancelButton = new Choices('#entityTag', {
+    var multipleEntityTag = new Choices('#entityTag', {
         removeItemButton: true,
         maxItemCount: 8,
         searchResultLimit: 8,
         renderChoiceLimit: 8
     });
 
-
-});
-
-$(document).ready(function() {
-
-    var multipleCancelButton = new Choices('#revisionNo', {
+    var multipleRevisionNo = new Choices('#revisionNo', {
+        removeItemButton: true,
+        maxItemCount: 18,
+        searchResultLimit: 18,
+        renderChoiceLimit: 18
+    });
+    var multipleModelName = new Choices('#modelName', {
         removeItemButton: true,
         maxItemCount: 18,
         searchResultLimit: 18,
@@ -23,9 +23,9 @@ $(document).ready(function() {
 });
 
 $(document).ready(function() {
-    $('#displayDfm1Forecast').DataTable({
-        dom: 'Bfrtip',
-
+    $('table.display').DataTable({
+        dom: 'Blrtip',
+        // "bFilter": false, 
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true
@@ -37,11 +37,12 @@ $(document).ready(function() {
                     className: ''
                 }
             },
-            buttons: [{
-                    extend: 'pageLength',
-                    className: 'btn btn-dark rounded-0',
-                    text: '<i class="far fa-page"></i> Show Entries'
-                },
+            buttons: [
+                // {  
+                //     extend: 'pageLength',  
+                //     className: 'btn btn-dark rounded-0',  
+                //     text: '<i class="far fa-page"></i> Show Entries'  
+                // },
                 {
                     extend: 'copy',
                     className: 'btn btn-dark rounded-0',
@@ -72,7 +73,6 @@ $(document).ready(function() {
         }
     });
 });
-
 // setting maximum date to yesterday
 var today = new Date();
 var dd = today.getDate() - 1;
@@ -129,5 +129,4 @@ function validateForm() {
 
     //true will submit form false will not
     return true;
-
 }

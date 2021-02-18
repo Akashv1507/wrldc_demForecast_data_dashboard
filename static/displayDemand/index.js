@@ -6,10 +6,32 @@ $(document).ready(function() {
         searchResultLimit: 8,
         renderChoiceLimit: 8
     });
-    //for dataTable
-    $('#displayDemand').DataTable({
-        dom: 'Bfrtip',
 
+    //for individual column search
+    // Setup - add a text input to each footer cell
+    $('#displayDemand thead tr').clone(true).appendTo('#displayDemand thead');
+    $('#displayDemand thead tr:eq(1) th').each(function(i) {
+        var title = $(this).text();
+        $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+        $('input', this).on('keyup change', function() {
+            if (table.column(i).search() !== this.value) {
+                table
+                    .column(i)
+                    .search(this.value)
+                    .draw();
+            }
+        });
+    });
+
+    //for dataTable
+    var table = $('#displayDemand').DataTable({
+
+        dom: 'Bfrtip',
+        order: [
+            [0, "asc"]
+        ],
+        //orderCellsTop: true,
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true
@@ -55,6 +77,8 @@ $(document).ready(function() {
 
         }
     });
+
+
 });
 // setting maximum date to yesterday
 var today = new Date();

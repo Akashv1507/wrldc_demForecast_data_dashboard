@@ -1,3 +1,24 @@
-.table{
-   color: black;
+.table {
+    color: #140103;
+    font-weight: bold;
+}
+
+body {
+    color: #140103;
+}
+
+.sidebar-dark .nav-item .nav-link {
+    color: #f8f9fc;
+}
+
+.sidebar .nav-item .nav-link span {
+    font-size: .95rem;
+    display: inline;
+}
+
+thead input {
+    padding: 2px;
+    box-sizing: border-box;
+    font-size: small;
+    width: 100%
 }

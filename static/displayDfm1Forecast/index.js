@@ -21,11 +21,28 @@ $(document).ready(function() {
 
 
 });
+//for individual column search
+// Setup - add a text input to each footer cell
+$('#displayDfm1Forecast thead tr').clone(true).appendTo('#displayDfm1Forecast thead');
+$('#displayDfm1Forecast thead tr:eq(1) th').each(function(i) {
+    var title = $(this).text();
+    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+    $('input', this).on('keyup change', function() {
+        if (table.column(i).search() !== this.value) {
+            table
+                .column(i)
+                .search(this.value)
+                .draw();
+        }
+    });
+});
 
 $(document).ready(function() {
     $('#displayDfm1Forecast').DataTable({
         dom: 'Bfrtip',
-
+        scrollX: true,
+        scrollY: true,
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true

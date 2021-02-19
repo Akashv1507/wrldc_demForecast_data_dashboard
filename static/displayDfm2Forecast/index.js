@@ -21,11 +21,26 @@ $(document).ready(function() {
 
 
 });
+$('#displayDfm2Forecast thead tr').clone(true).appendTo('#displayDfm2Forecast thead');
+$('#displayDfm2Forecast thead tr:eq(1) th').each(function(i) {
+    var title = $(this).text();
+    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+    $('input', this).on('keyup change', function() {
+        if (table.column(i).search() !== this.value) {
+            table
+                .column(i)
+                .search(this.value)
+                .draw();
+        }
+    });
+});
 
 $(document).ready(function() {
     $('#displayDfm2Forecast').DataTable({
         dom: 'Bfrtip',
-
+        scrollX: true,
+        scrollY: true,
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true

@@ -5,6 +5,7 @@
 
 body {
     color: #140103;
+    background: #88a3f3;
 }
 
 .sidebar-dark .nav-item .nav-link {
@@ -16,9 +17,42 @@ body {
     display: inline;
 }
 
-thead input {
+thead {
+    box-sizing: border-box;
+    background-color: #5a5c69;
+    color: #f7eeef;
+}
+
+
+/* thead input {
     padding: 2px;
     box-sizing: border-box;
     font-size: small;
-    width: 100%
+    width: 100%;
+    background-color: #88a3f3;
+} */
+
+table.dataTable tbody tr {
+    background-color: #c4d1f8;
+}
+
+table.dataTable.display tbody tr.odd {
+    background-color: #98aef0;
+}
+
+table.dataTable.display tbody tr.odd>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
+    background-color: #88a3f3;
+}
+
+table.dataTable.display tbody tr.even>.sorting_1,
+table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
+    background-color: #c4d1f8;
+}
+
+#displayDemand,
+#displayDfm1Forecast,
+#displayDfm2Forecast,
+#displayDfm1RevisionwiseError {
+    background-color: #4e73df;
 }

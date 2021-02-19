@@ -23,6 +23,7 @@ __pycache__
 *$py.class
 ~*.xlsx
 
+.VSCodeCounter
 # Distribution / packaging 
 .Python build/ 
 develop-eggs/ 

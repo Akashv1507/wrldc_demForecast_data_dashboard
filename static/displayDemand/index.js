@@ -28,9 +28,7 @@ $(document).ready(function() {
     var table = $('#displayDemand').DataTable({
         dom: 'Bfrtip',
         scrollX: true,
-        order: [
-            [0, "asc"]
-        ],
+        scrollY: true,
         //orderCellsTop: true,
         lengthMenu: [96, 192, 188],
         fixedHeader: {

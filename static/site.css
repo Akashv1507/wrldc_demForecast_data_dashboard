@@ -21,6 +21,9 @@ thead {
     box-sizing: border-box;
     background-color: #5a5c69;
     color: #f7eeef;
+    white-space: nowrap;
+    display: auto;
+    overflow-x: auto;
 }
 
 
@@ -54,5 +57,7 @@ table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
 #displayDfm1Forecast,
 #displayDfm2Forecast,
 #displayDfm1RevisionwiseError {
-    background-color: #4e73df;
+    white-space: nowrap;
+    display: block;
+    overflow-x: scroll;
 }

@@ -27,13 +27,14 @@ $(document).ready(function() {
     //for dataTable
     var table = $('#displayDemand').DataTable({
         dom: 'Bfrtip',
+        // dom: '<"dt-buttons"Bpi>rtp',
+        scrollY: 700,
         scrollX: true,
-        scrollY: true,
+        scroller: true,
+        fixedHeader: true,
         //orderCellsTop: true,
         lengthMenu: [96, 192, 188],
-        fixedHeader: {
-            header: true
-        },
+
         buttons: {
             dom: {
                 button: {
@@ -75,6 +76,7 @@ $(document).ready(function() {
 
         }
     });
+
 
 
 });

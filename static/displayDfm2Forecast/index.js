@@ -37,10 +37,8 @@ $('#displayDfm2Forecast thead tr:eq(1) th').each(function(i) {
 });
 
 $(document).ready(function() {
-    $('#displayDfm2Forecast').DataTable({
+    table = $('#displayDfm2Forecast').DataTable({
         dom: 'Bfrtip',
-        scrollX: true,
-        scrollY: true,
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true

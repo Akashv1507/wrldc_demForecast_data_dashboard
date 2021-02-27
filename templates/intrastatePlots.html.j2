@@ -1,0 +1,107 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}Display Intrastate Plots{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1>Display Intrastate Plots</h1>
+
+<form method="post" id="myForm" onsubmit="return validateForm()" name="myForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="startDate">Start Date</label>
+      <input type="date" class="form-control" name = "startDate" id="startDate"  required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="endDate">End Date</label>
+      <input type="date" name = "endDate" class="form-control" id="endDate">
+    </div>
+ </div>
+
+ <div class="form-row">
+    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true">
+      {# <label for="inputState">State</label> #}
+      <select id="entityTag" name ="entityTag" class="form-control" placeholder="Select Constituents" multiple>
+        <option value="WRLDCMP.SCADA1.A0047000" >WR-Total</option>
+        <option  value="WRLDCMP.SCADA1.A0046980">Maharastra</option>
+        <option  value="WRLDCMP.SCADA1.A0046957">Gujarat</option>
+        <option  value="WRLDCMP.SCADA1.A0046978">Madhya Pradesh</option>
+        <option  value= "WRLDCMP.SCADA1.A0046945">Chattisgarh</option>
+        <option  value="WRLDCMP.SCADA1.A0046962">Goa</option>
+        <option  value="WRLDCMP.SCADA1.A0046948">DD</option>
+        <option  value="WRLDCMP.SCADA1.A0046953">DNH</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true">
+        <select id="revisionNo" name ="revisionNo" class="form-control" placeholder="Select Revision No." multiple>
+        <option value="R0A" >R0A</option>
+        <option  value="R0B">R0B</option>
+        <option  value="R1">R1</option>
+        <option  value="R2">R2</option>
+        <option  value= "R3">R3</option>
+        <option  value="R4">R4</option>
+        <option  value="R5">R5</option>
+        <option  value="R6">R6</option>
+        <option  value="R7">R7</option>
+        <option  value="R8">R8</option>
+        <option  value= "R9">R9</option>
+        <option  value="R10">R10</option>
+        <option  value="R11">R11</option>
+        <option  value="R12">R12</option>
+        <option  value="R13">R13</option>
+        <option  value="R14">R14</option>
+        <option  value="R15">R15</option>
+        <option  value="R16">R16</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="modelName" id="dfm1" value="dfm1" checked>
+        <label class="form-check-label" for="dfm1">DFM1</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="modelName" id="dfm2" value="dfm2" >
+        <label class="form-check-label" for="dfm2">DFM2</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="modelName" id="dfm3" value="dfm3" >
+        <label class="form-check-label" for="dfm3">DFM3</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="modelName" id="dfm4" value="dmf4" disabled>
+        <label class="form-check-label" for="dfm4">DFM4</label>
+      </div>
+    </div>
+ </div>
+ <button type="submit" class="btn btn-primary">Show</button>
+</form>
+<div id="errorDiv" class="mt-4" style="color:rgb(139,0,0);" ></div>
+
+
+{% if method == 'POST' %}
+  {% if plotData %}
+    <div id="modelNameDiv" class="mt-4 mb-5 text-center" style="color:rgb(139,0,0); align:center;"><h2><b>Showing Plots of {{modelName}} between {{startDate}} and {{endDate}}</b></h2></div>
+    {% for entityDiv in plotData %}
+      <div id = "{{entityDiv.divName}}"></div>
+      <hr class ="hrStyle">
+    {% endfor%}
+  {% else %}
+  <div class="alert alert-danger mt-5" >
+    <strong>Something went wrong</strong>  Data Plotting  Unsuccessfull
+  </div>
+  {% endif %}
+{% endif %}
+
+<script>
+  var plotData = {{plotData|safe}};
+</script>
+{% endblock %}
+
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='node_modules/plotly.js-dist/plotly.js') }}"></script>
+    <script src="{{ url_for('static', filename='intrastatePlots/index.js') }}"></script>    
+{% endblock %}

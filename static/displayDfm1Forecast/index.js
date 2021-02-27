@@ -123,7 +123,7 @@ function validateForm() {
     for (var option of document.getElementById('entityTag').options) {
         if (option.selected) { selectedEntityList.push(option.value); }
     }
-    //putting all selected entity in selectedEntity List
+    //putting all selected Revision in selectedRevision List
     for (var option of document.getElementById('revisionNo').options) {
         if (option.selected) { selectedRevisinoList.push(option.value); }
     }

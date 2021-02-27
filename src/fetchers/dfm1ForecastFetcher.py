@@ -40,13 +40,13 @@ class Dfm1ForecastFetchRepo():
         listOfTuple = list(records)
         return listOfTuple
 
-    def fetchForecast(self, startTime: dt.datetime, endTime: dt.datetime, entityList:List, revisionNoList:List) -> List[Tuple]:
+    def fetchForecast(self, startTime: dt.datetime, endTime: dt.datetime, entityList:Tuple, revisionNoList:Tuple) -> List[Tuple]:
         """fetch forecasted demand and return [[timestamp, revisionNo, DemandValue(variable length)],]
         Args:
             startTime (dt.datetime): start time
             endTime (dt.datetime): end time
-            entityList (List): List of all entities selected from dropdown
-            revisionNoList:(List): revision no. list
+            entityList (Tuple): Tuple of all entities selected from dropdown
+            revisionNoList:(Tuple): revision no. list
         Returns:
             List[Tuple]: list of tuple, tuple length is variable based on length of entity list
             [(timestamp,revision_no, wr-demand, chatt-demand, mah-demand.....)]

@@ -7,6 +7,7 @@ from src.fetchers.dfm1ForecastFetcher import Dfm1ForecastFetchRepo
 from src.fetchers.dfm2ForecastFetcher import Dfm2ForecastFetchRepo
 from src.fetchers.dfm1RevisionwiseErrorFetcher import Dfm1RevisionwiseErrorFetchRepo
 from src.fetchers.dfm2RevisionwiseErrorFetcher import Dfm2RevisionwiseErrorFetchRepo
+from src.routeControllers.plotsController import plotsController
 import datetime as dt
 from typing import List, Tuple, Union
 
@@ -25,6 +26,9 @@ obj_dfm1ForecastFetchRepo = Dfm1ForecastFetchRepo(conString)
 obj_dfm2ForecastFetchRepo = Dfm2ForecastFetchRepo(conString)
 obj_dfm1RevisionwiseError = Dfm1RevisionwiseErrorFetchRepo(conString)
 obj_dfm2RevisionwiseError = Dfm2RevisionwiseErrorFetchRepo(conString)
+
+# registering blueprints
+app.register_blueprint(plotsController, url_prefix='/display')
 
 @app.route('/')
 @app.route('/display')

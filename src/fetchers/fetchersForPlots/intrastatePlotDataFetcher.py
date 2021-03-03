@@ -45,7 +45,7 @@ class InterstatePlotDataFetcherRepo():
             revisionNoList:(List): revision no. list
             modelName:(str): model name
         Returns:
-            plotData : {'entityTag':str, 'divName':str, 'traces' = [{'traceName': actualDemand, 'xVals':listof timestamp, 'yVals': listof demandVale}, similar for other revisions ]}
+            plotData : [{'entityTag':str, 'divName':str, 'traces' = [{'traceName': actualDemand, 'xVals':listof timestamp, 'yVals': listof demandVale}, similar for other revisions ]}
             ,{}...similarly for all entities]
         """ 
         plotData =[]

@@ -5,6 +5,7 @@ from src.utils.getFullModelName import getFullModelName
 from src.fetchers.fetchersForPlots.intrastatePlotDataFetcher import InterstatePlotDataFetcherRepo
 import datetime as dt
 from typing import List, Union
+from flask_login import login_required
 from src.appConfig import getAppConfigDict
 
 
@@ -18,6 +19,7 @@ obj_interstatePlotDataFetcherRepo = InterstatePlotDataFetcherRepo(conString)
 plotsController = Blueprint('plotsController', __name__, template_folder='templates')
 
 @plotsController.route('/intrastate/plots', methods=['GET', 'POST'])
+@login_required
 def intrastatePlots():
     #in case of post req populate div with plots
     if request.method == 'POST':

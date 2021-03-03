@@ -10,7 +10,7 @@
 <!-- Nav Item - Dashboard -->
 
 <li class="nav-item">
-    <a class="nav-link" href='/display/demand'>
+    <a class="nav-link" href="{{url_for('displayDemand')}}">
         <i class="fas fa-th-large"></i>
         <span>Demand</span>
     </a>
@@ -22,8 +22,8 @@
     </a>
     <div id="collapseForecast" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
         <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/display/dfm1/forecast">Mathematical Model<br/> Forecast</a>
-        <a class="collapse-item" href="/display/dfm2/forecast">MLR Model <br/>Forecast</a>
+        <a class="collapse-item" href="{{url_for('displayDfm1forecast')}}"">Mathematical Model<br/> Forecast</a>
+        <a class="collapse-item" href="{{url_for('displayDfm2forecast')}}">MLR Model <br/>Forecast</a>
         </div>
     </div>
 </li>
@@ -35,7 +35,7 @@
     </a>
     <div id="collapseError" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
         <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/display/revisionwiseError">RevisionWise Error</a>
+        <a class="collapse-item" href="{{url_for('displayrevisionwiseError')}}">RevisionWise Error</a>
         <a class="collapse-item" href="/">Blockwise Error</a>
         </div>
     </div>
@@ -48,8 +48,9 @@
     </a>
     <div id="collapsePlots" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
         <div class="bg-white py-2 collapse-inner rounded">
-        <a class="collapse-item" href="/display/intrastate/plots">Intrastate Plots</a>
-        <a class="collapse-item" href="/display/interstate/plots">Interstate Plots</a>
+        {# plotsController is blueprint name #}
+        <a class="collapse-item" href="{{url_for('plotsController.intrastatePlots')}}">Intrastate Plots</a>
+        <a class="collapse-item" href="{{url_for('plotsController.interstatePlots')}}">Interstate Plots</a>
         </div>
     </div>
 </li>

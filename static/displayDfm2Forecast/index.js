@@ -87,7 +87,7 @@ $(document).ready(function() {
 });
 // setting maximum date to yesterday
 var today = new Date();
-var dd = today.getDate() - 1;
+var dd = today.getDate() + 1;
 var mm = today.getMonth() + 1; //January is 0!
 var yyyy = today.getFullYear();
 if (dd < 10) {

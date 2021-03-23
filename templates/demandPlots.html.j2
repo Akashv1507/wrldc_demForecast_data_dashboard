@@ -1,0 +1,73 @@
+{% extends "layoutBase.html.j2" %}
+{% block title %}Demand Plots{% endblock %}
+
+{% block head %}
+{{ super() }}
+{% endblock %}
+
+{% block content %}
+<h1>Demand Plots</h1>
+
+<form method="post" id="myForm" onsubmit="return validateForm()" name="myForm">
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <label for="startDate">Start Date</label>
+      <input type="date" class="form-control" name = "startDate" id="startDate" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="endDate">End Date</label>
+      <input type="date" name = "endDate" class="form-control" id="endDate">
+    </div>
+ </div>
+
+ <div class="form-row" >
+    <div class="form-group col-md-4 selectpicker" multiple data-live-search="true" >
+      {# <label for="inputState">State</label> #}
+      <select id="entityTag" name ="entityTag" class="form-control" placeholder="Select Constituents" multiple>
+        <option value="WRLDCMP.SCADA1.A0047000" >WR-Total</option>
+        <option  value="WRLDCMP.SCADA1.A0046980">Maharastra</option>
+        <option  value="WRLDCMP.SCADA1.A0046957">Gujarat</option>
+        <option  value="WRLDCMP.SCADA1.A0046978">Madhya Pradesh</option>
+        <option  value= "WRLDCMP.SCADA1.A0046945">Chattisgarh</option>
+        <option  value="WRLDCMP.SCADA1.A0046962">Goa</option>
+        <option  value="WRLDCMP.SCADA1.A0046948">DD</option>
+        <option  value="WRLDCMP.SCADA1.A0046953">DNH</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="demandOptions" id="minMinRamp" value="minMinRamp" checked>
+        <label class="form-check-label" for="minMinRamp">Model-Min_Min Ramp</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="demandOptions" id="rollingMedian" value="rollingMedian">
+        <label class="form-check-label" for="rollingMedian">Model-Rolling Median</label>
+      </div>
+    </div>
+ </div>
+ <button type="submit" class="btn btn-primary">Show</button>
+</form>
+<div id="errorDiv" class="mt-4" style="color:rgb(139,0,0);" ></div>
+
+{% if method == 'POST' %}
+  {% if plotData %}
+    <div id="modelNameDiv" class="mt-4 mb-5 text-center" style="color:rgb(139,0,0); align:center;"><h2><b>Showing Demand Plots between {{startDate}} and {{endDate}}</b></h2></div>
+      <div id = "interstateDemandPlots"></div>
+      <hr class ="hrStyle">
+  {% else %}
+  <div class="alert alert-danger mt-5" >
+    <strong>Something went wrong</strong>  Data Plotting  Unsuccessfull
+  </div>
+  {% endif %}
+{% endif %}
+
+<script>
+  var plotData = {{plotData|safe}};
+</script>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{{ url_for('static', filename='node_modules/plotly.js-dist/plotly.js') }}"></script>
+    <script src="{{ url_for('static', filename='interstateDemandPlots/index.js') }}"></script>   
+{% endblock %}

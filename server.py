@@ -27,7 +27,7 @@ login_manager = initDb(app)['login_manager']
 #this will inform where to go in case you have decorated any route with login_required
 login_manager.login_view = 'login'
 #for message that " you should loged in to accees this page"
-login_manager.login_message_category = 'info'
+login_manager.login_message_category = 'danger'
 
 #importing User model here so that no circular import occurs.
 from src.models import User
@@ -80,6 +80,7 @@ def login():
             login_user(user, remember=form.remember.data)
             # returning to that url if without login that url was accessed, next is url parameter
             next_page = request.args.get('next')
+            flash('Login Successful. Please Continue', 'success')
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
@@ -88,6 +89,7 @@ def login():
 @app.route("/logout")
 def logout():
     logout_user()
+    flash('Logout Successful. Please Login To Access Portal', 'success')
     return redirect(url_for('home'))
 
 

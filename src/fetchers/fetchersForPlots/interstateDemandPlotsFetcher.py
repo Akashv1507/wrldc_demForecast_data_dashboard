@@ -42,7 +42,7 @@ class InterstateDemandPlotDataFetcherRepo():
                                              {'entityTag':"WRLDCMP.SCADA1.A0046980", 'entityName': 'Maharastra_Demand' }, ...similar for other states]
             tableName(str): name of database table
         Returns:
-            plotData : ['title':str, 'divName':str, 'traces' = [{'traceName': EntityName, 'xVals':listof timestamp, 'yVals': listof demandVale}, similar for other states ] ]
+            plotData : {'title': 'Interstate Demand Plots', 'divName':'interstateDemandPlots', 'traces':[]}
         """ 
         
         plotData =[{'title': 'Interstate Demand Plots', 'divName':'interstateDemandPlots', 'traces':[]}]
@@ -64,9 +64,8 @@ class InterstateDemandPlotDataFetcherRepo():
                         WHERE time_stamp BETWEEN TO_DATE(:start_time,'YYYY-MM-DD HH24:MI:SS') and TO_DATE(:end_time,'YYYY-MM-DD HH24:MI:SS') 
                         and entity_tag =: entityTag ORDER BY time_stamp"""
                     actualDemandDf = pd.read_sql(fetch_sql_demand, params={'start_time': startTime, 'end_time': endTime, 'entityTag':entityobj['entityTag']}, con=connection)
-                    
                     traceObj =self.toTraceObj(actualDemandDf, entityobj['entityName'])
-                    plotData['traces'].append(traceObj)
+                    plotData[0]['traces'].append(traceObj)
 
                    
             except Exception as err:

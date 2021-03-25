@@ -42,9 +42,9 @@ def intrastatePlots():
     return render_template('intrastatePlots.html.j2', method="GET")
 
 
-@plotsController.route('/interstate/plots')
+@plotsController.route('/interstate/plots', methods=['GET', 'POST'])
 def interstatePlots():
-    #in case of post req populate div with plots
+    # in case of post req populate div with plots
     if request.method == 'POST':
         # getting input data from post req 
         startDate = request.form.get('startDate')
@@ -55,12 +55,13 @@ def interstatePlots():
         entityNameListDict = generateEntityNameListDict(entityTagList)
         demandType = request.form.get('demandOptions')
         if demandType == 'minMinRamp':
-            tableName="interpolated_blockwise_demand"
+            tableName="derived_blockwise_demand"
         else:
-            tableName = "derrived_blockwise_demand"
+            tableName = "interpolated_blockwise_demand"
         plotData = obj_interstateDemandPlotDataFetcherRepo.fetchPlotData(startDate, endDate, entityNameListDict, tableName)
-        
+        # print(plotData)
         return render_template('demandPlots.html.j2', method="POST", plotData=plotData, startDate=startDate.date(), endDate=endDate.date())
             
     # in case of get request just return the html template
     return render_template('demandPlots.html.j2', method="GET")
+    

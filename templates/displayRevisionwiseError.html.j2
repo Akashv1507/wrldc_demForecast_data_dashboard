@@ -75,8 +75,8 @@
 
 <div id='respDiv' class="mt-3 text-dark">
   <div class="row">
-  <div class="col-md-5">
-    <table id="displayDfm1RevisionwiseError" class="table table-bordered table-hover display w-auto" style="width:100%">
+    <div class="col-md-5 mr-4">
+    <table id="dfm1RevisionwiseError" class="table table-bordered table-hover display w-auto" style="width:100%">
         <thead>
             
             <tr>
@@ -108,7 +108,7 @@
     </div>
 
     {# dfm2 table #}
-    <div class="col-md-5">
+    <div class="col-md-5 ml-5">
     <table id="displayDfm2RevisionwiseError" class="table table-bordered table-hover display w-auto" style="width:100%">
         <thead class ="ml-5">
             <tr>
@@ -139,6 +139,74 @@
     </table>
     </div>
   </div>
+  <br>
+  {# new row #}
+  <div class="row ">
+    {# dfm3 table #}
+    <div class="col-md-5 mr-4">
+    <table id="displayDfm3RevisionwiseError" class="table table-bordered table-hover display w-auto" style="width:100%">
+        <thead>
+            <tr>
+                <th colspan="5">MLR-Weather Model</th>
+            </tr>
+            <tr>
+                <th>Date_Key</th>
+                <th>Entity_Name</th>
+                <th>Revision_No.</th>
+                <th>MAPE</th>
+                <th>RMSE %</th>
+                
+            </tr>
+        </thead>    
+        <tbody>
+            {% for row in dfm3Data %}
+            <tr>
+                {% for value in row %}
+                  {% if value is string %}
+                    <td>{{value}}</td>
+                  {% else %}
+                    <td>{{value|round(2)}}</td>
+                  {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}    
+        </tbody>
+    </table>
+    </div>
+
+    {# dfm4 table #}
+    <div class="col-md-5 ml-5">
+    <table id="displayDfm4RevisionwiseError" class="table table-bordered table-hover display w-auto" style="width:100%">
+        <thead class ="ml-5">
+            <tr>
+                <th colspan="5">MLP Model</th>
+            </tr>
+            <tr>
+                <th>Date_Key</th>
+                <th>Entity_Name</th>
+                <th>Revision_No.</th>
+                <th>MAPE</th>
+                <th>RMSE %</th>
+                
+            </tr>
+        </thead>    
+        <tbody>
+            {% for row in dfm4Data %}
+            <tr>
+                {% for value in row %}
+                  {% if value is string %}
+                    <td>{{value}}</td>
+                  {% else %}
+                    <td>{{value|round(2)}}</td>
+                  {% endif %}
+                {% endfor %}
+            </tr>
+            {% endfor %}    
+        </tbody>
+    </table>
+    </div>
+  </div>
+
 </div>
 {% else %}
 <div class="alert alert-danger mt-5" >

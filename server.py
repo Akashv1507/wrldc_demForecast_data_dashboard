@@ -5,8 +5,12 @@ from src.utils.generateColumnNameFromEntityList import generateColumnName
 from src.fetchers.demandDataFetcher import DemandFetchRepo
 from src.fetchers.dfm1ForecastFetcher import Dfm1ForecastFetchRepo
 from src.fetchers.dfm2ForecastFetcher import Dfm2ForecastFetchRepo
+from src.fetchers.dfm3ForecastFetcher import Dfm3ForecastFetchRepo
+from src.fetchers.dfm4ForecastFetcher import Dfm4ForecastFetchRepo
 from src.fetchers.dfm1RevisionwiseErrorFetcher import Dfm1RevisionwiseErrorFetchRepo
 from src.fetchers.dfm2RevisionwiseErrorFetcher import Dfm2RevisionwiseErrorFetchRepo
+from src.fetchers.dfm3RevisionwiseErrorFetcher import Dfm3RevisionwiseErrorFetchRepo
+from src.fetchers.dfm4RevisionwiseErrorFetcher import Dfm4RevisionwiseErrorFetchRepo
 from src.routeControllers.plotsController import plotsController
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
@@ -41,8 +45,12 @@ conString = configDict['con_string_mis_warehouse']
 obj_demandFetchRepo = DemandFetchRepo(conString)
 obj_dfm1ForecastFetchRepo = Dfm1ForecastFetchRepo(conString)
 obj_dfm2ForecastFetchRepo = Dfm2ForecastFetchRepo(conString)
+obj_dfm3ForecastFetchRepo = Dfm3ForecastFetchRepo(conString)
+obj_dfm4ForecastFetchRepo = Dfm4ForecastFetchRepo(conString)
 obj_dfm1RevisionwiseError = Dfm1RevisionwiseErrorFetchRepo(conString)
 obj_dfm2RevisionwiseError = Dfm2RevisionwiseErrorFetchRepo(conString)
+obj_dfm3RevisionwiseError = Dfm3RevisionwiseErrorFetchRepo(conString)
+obj_dfm4RevisionwiseError = Dfm4RevisionwiseErrorFetchRepo(conString)
 
 # registering blueprints
 app.register_blueprint(plotsController, url_prefix='/display')
@@ -179,6 +187,66 @@ def displayDfm2forecast():
         return render_template('displayDfm2Forecast.html.j2', data=data, columnNameList=columnNameList, method="POST")
     # in case of get request just return the html template
     return render_template('displayDfm2Forecast.html.j2', method="GET")
+
+@app.route('/display/dfm3/forecast', methods=['GET', 'POST'])
+@login_required
+def displayDfm3forecast():
+    #in case of post req populate datatable
+    if request.method == 'POST':
+        # getting input data from post req 
+        startDate = request.form.get('startDate')
+        endDate = request.form.get('endDate')
+        startDate = dt.datetime.strptime(startDate, '%Y-%m-%d') 
+        endDate = dt.datetime.strptime(endDate, '%Y-%m-%d') 
+        entityTagList = request.form.getlist('entityTag')
+        revisionNoList = request.form.getlist('revisionNo')
+        #mapping entity tag to wr-constituents name list(column names on webpage)
+        columnNameList = generateColumnName(entityTagList)
+        #handling case for only one entity ('WRLDCMP.SCADA1.A0047000') and only one revision No
+        if len(entityTagList)<=1:
+            entityTagList=(f"""'{entityTagList[0]}'""")
+        else:
+            entityTagList = tuple(entityTagList)
+
+        if len(revisionNoList)<=1:
+            revisionNoList=(f"""'{revisionNoList[0]}'""")
+        else:
+            revisionNoList = tuple(revisionNoList)
+        #fetching demand of all entities in entityTagList
+        data :List[Tuple]= obj_dfm3ForecastFetchRepo.fetchForecast(startDate, endDate, entityTagList, revisionNoList)
+        return render_template('displayDfm3Forecast.html.j2', data=data, columnNameList=columnNameList, method="POST")
+    # in case of get request just return the html template
+    return render_template('displayDfm3Forecast.html.j2', method="GET")
+
+@app.route('/display/dfm4/forecast', methods=['GET', 'POST'])
+@login_required
+def displayDfm4forecast():
+    #in case of post req populate datatable
+    if request.method == 'POST':
+        # getting input data from post req 
+        startDate = request.form.get('startDate')
+        endDate = request.form.get('endDate')
+        startDate = dt.datetime.strptime(startDate, '%Y-%m-%d') 
+        endDate = dt.datetime.strptime(endDate, '%Y-%m-%d') 
+        entityTagList = request.form.getlist('entityTag')
+        revisionNoList = request.form.getlist('revisionNo')
+        #mapping entity tag to wr-constituents name list(column names on webpage)
+        columnNameList = generateColumnName(entityTagList)
+        #handling case for only one entity ('WRLDCMP.SCADA1.A0047000') and only one revision No
+        if len(entityTagList)<=1:
+            entityTagList=(f"""'{entityTagList[0]}'""")
+        else:
+            entityTagList = tuple(entityTagList)
+
+        if len(revisionNoList)<=1:
+            revisionNoList=(f"""'{revisionNoList[0]}'""")
+        else:
+            revisionNoList = tuple(revisionNoList)
+        #fetching demand of all entities in entityTagList
+        data :List[Tuple]= obj_dfm4ForecastFetchRepo.fetchForecast(startDate, endDate, entityTagList, revisionNoList)
+        return render_template('displayDfm4Forecast.html.j2', data=data, columnNameList=columnNameList, method="POST")
+    # in case of get request just return the html template
+    return render_template('displayDfm4Forecast.html.j2', method="GET")
     
 @app.route('/display/revisionwiseError', methods=['GET', 'POST'])
 @login_required
@@ -207,7 +275,9 @@ def displayrevisionwiseError():
         #fetching demand of all entities in entityTagList
         dfm1Data :List[Tuple]= obj_dfm1RevisionwiseError.fetchRevisionwiseError(startDate, endDate, entityTagList, revisionNoList)
         dfm2Data :List[Tuple]= obj_dfm2RevisionwiseError.fetchRevisionwiseError(startDate, endDate, entityTagList, revisionNoList)
-        return render_template('displayRevisionwiseError.html.j2', dfm1Data= dfm1Data, dfm2Data= dfm2Data, method="POST")
+        dfm3Data :List[Tuple]= obj_dfm3RevisionwiseError.fetchRevisionwiseError(startDate, endDate, entityTagList, revisionNoList)
+        dfm4Data :List[Tuple]= obj_dfm4RevisionwiseError.fetchRevisionwiseError(startDate, endDate, entityTagList, revisionNoList)
+        return render_template('displayRevisionwiseError.html.j2', dfm1Data= dfm1Data, dfm2Data= dfm2Data, dfm3Data= dfm3Data, dfm4Data= dfm4Data, method="POST")
     # in case of get request just return the html template
     return render_template('displayRevisionwiseError.html.j2', method="GET")
 

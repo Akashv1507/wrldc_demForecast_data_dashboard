@@ -1,18 +1,18 @@
 $(document).ready(function() {
-    var multipleEntityTag = new Choices('#entityTag', {
+
+    var multipleCancelButton = new Choices('#entityTag', {
         removeItemButton: true,
         maxItemCount: 8,
         searchResultLimit: 8,
         renderChoiceLimit: 8
     });
 
-    var multipleRevisionNo = new Choices('#revisionNo', {
-        removeItemButton: true,
-        maxItemCount: 18,
-        searchResultLimit: 18,
-        renderChoiceLimit: 18
-    });
-    var multipleModelName = new Choices('#modelName', {
+
+});
+
+$(document).ready(function() {
+
+    var multipleCancelButton = new Choices('#revisionNo', {
         removeItemButton: true,
         maxItemCount: 18,
         searchResultLimit: 18,
@@ -21,12 +21,24 @@ $(document).ready(function() {
 
 
 });
+$('#displayDfm3Forecast thead tr').clone(true).appendTo('#displayDfm3Forecast thead');
+$('#displayDfm3Forecast thead tr:eq(1) th').each(function(i) {
+    var title = $(this).text();
+    $(this).html('<input type="text" placeholder="Search ' + title + '" />');
+
+    $('input', this).on('keyup change', function() {
+        if (table.column(i).search() !== this.value) {
+            table
+                .column(i)
+                .search(this.value)
+                .draw();
+        }
+    });
+});
 
 $(document).ready(function() {
-    $('table.display').DataTable({
-        dom: 'Brtip',
-
-        // "bFilter": false, 
+    table = $('#displayDfm3Forecast').DataTable({
+        dom: 'Bfrtip',
         lengthMenu: [96, 192, 188],
         fixedHeader: {
             header: true
@@ -38,12 +50,11 @@ $(document).ready(function() {
                     className: ''
                 }
             },
-            buttons: [
-                // {  
-                //     extend: 'pageLength',  
-                //     className: 'btn btn-dark rounded-0',  
-                //     text: '<i class="far fa-page"></i> Show Entries'  
-                // },
+            buttons: [{
+                    extend: 'pageLength',
+                    className: 'btn btn-dark rounded-0',
+                    text: '<i class="far fa-page"></i> Show Entries'
+                },
                 {
                     extend: 'copy',
                     className: 'btn btn-dark rounded-0',
@@ -76,7 +87,7 @@ $(document).ready(function() {
 });
 // setting maximum date to yesterday
 var today = new Date();
-var dd = today.getDate() - 1;
+var dd = today.getDate() + 1;
 var mm = today.getMonth() + 1; //January is 0!
 var yyyy = today.getFullYear();
 if (dd < 10) {
@@ -109,7 +120,7 @@ function validateForm() {
     for (var option of document.getElementById('entityTag').options) {
         if (option.selected) { selectedEntityList.push(option.value); }
     }
-    //putting all selected Revision in selectedRevision List
+    //putting all selected entity in selectedEntity List
     for (var option of document.getElementById('revisionNo').options) {
         if (option.selected) { selectedRevisinoList.push(option.value); }
     }
@@ -130,4 +141,5 @@ function validateForm() {
 
     //true will submit form false will not
     return true;
+
 }

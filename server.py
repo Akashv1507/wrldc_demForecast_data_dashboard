@@ -11,23 +11,31 @@ from src.fetchers.dfm1RevisionwiseErrorFetcher import Dfm1RevisionwiseErrorFetch
 from src.fetchers.dfm2RevisionwiseErrorFetcher import Dfm2RevisionwiseErrorFetchRepo
 from src.fetchers.dfm3RevisionwiseErrorFetcher import Dfm3RevisionwiseErrorFetchRepo
 from src.fetchers.dfm4RevisionwiseErrorFetcher import Dfm4RevisionwiseErrorFetchRepo
+from src.fetchers.blockwiseMwErrorFetcher import BlockwiseMwErrorFetch
 from src.routeControllers.plotsController import plotsController
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime as dt
 from typing import List, Tuple, Union
 from src.appDb import initDb
-
+from waitress import serve
+from werkzeug.middleware.dispatcher import DispatcherMiddleware
+from werkzeug.exceptions import NotFound
+from typing import Any, cast
 
 app = Flask(__name__)
 
-#making instance of appDb
 
-app.config['SECRET_KEY'] = '5791628bb0b13ce0c676dfde280ba245'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'
+# get application config
+configDict = getAppConfigDict()
+appPrefix =  configDict['appPrefix']
+#making instance of appDb
+app.config['SECRET_KEY'] = configDict['flaskSecret']
+app.config['SQLALCHEMY_DATABASE_URI'] = configDict['SQLALCHEMY_DATABASE_URI']
 db = initDb(app)['db']
 bcrypt = Bcrypt(app)
 login_manager = initDb(app)['login_manager']
+
 #this will inform where to go in case you have decorated any route with login_required
 login_manager.login_view = 'login'
 #for message that " you should loged in to accees this page"
@@ -36,9 +44,6 @@ login_manager.login_message_category = 'danger'
 #importing User model here so that no circular import occurs.
 from src.models import User
 from src.wtForms.forms import RegistrationForm, LoginForm
-# get application config
-configDict = getAppConfigDict()
-
 
 #making objects of fetchers
 conString = configDict['con_string_mis_warehouse']
@@ -51,6 +56,7 @@ obj_dfm1RevisionwiseError = Dfm1RevisionwiseErrorFetchRepo(conString)
 obj_dfm2RevisionwiseError = Dfm2RevisionwiseErrorFetchRepo(conString)
 obj_dfm3RevisionwiseError = Dfm3RevisionwiseErrorFetchRepo(conString)
 obj_dfm4RevisionwiseError = Dfm4RevisionwiseErrorFetchRepo(conString)
+obj_blockwiseMwErrorFetch = BlockwiseMwErrorFetch(conString)
 
 # registering blueprints
 app.register_blueprint(plotsController, url_prefix='/display')
@@ -281,8 +287,47 @@ def displayrevisionwiseError():
     # in case of get request just return the html template
     return render_template('displayRevisionwiseError.html.j2', method="GET")
 
+@app.route('/display/blockwiseMwError', methods=['GET', 'POST'])
+@login_required
+def displayBlockwiseMwError():
+    #in case of post req populate datatable
+    if request.method == 'POST':
+        # getting input data from post req 
+        startDate = request.form.get('startDate')
+        endDate = request.form.get('endDate')
+        startDate = dt.datetime.strptime(startDate, '%Y-%m-%d') 
+        endDate = dt.datetime.strptime(endDate, '%Y-%m-%d') 
+        entityTagList = request.form.getlist('entityTag')
+        revisionNoList = request.form.getlist('revisionNo')
+        modelName = request.form.get('modelName')
+        #handling case for only one entity ('WRLDCMP.SCADA1.A0047000') and only one revision No
+        if len(entityTagList)<=1:
+            entityTagList=(f"""'{entityTagList[0]}'""")
+        else:
+            entityTagList = tuple(entityTagList)
+
+        if len(revisionNoList)<=1:
+            revisionNoList=(f"""'{revisionNoList[0]}'""")
+        else:
+            revisionNoList = tuple(revisionNoList)
+        #fetching demand of all entities in entityTagList
+        mwErrorData :List[Tuple] = obj_blockwiseMwErrorFetch.fetchMwErrorData(startDate,endDate, entityTagList, revisionNoList, modelName)
+        return render_template('displayBlockwiseMwError.html.j2',mwErrorData=mwErrorData,  method="POST")
+    # in case of get request just return the html template
+    return render_template('displayBlockwiseMwError.html.j2', method="GET")
+
+
+hostedApp = Flask(__name__)
+
+cast(Any, hostedApp).wsgi_app = DispatcherMiddleware(NotFound(), {
+    appPrefix: app
+})
 
 if __name__ == '__main__':
     serverMode: str = configDict['mode']
     if serverMode.lower() == 'd':
-        app.run(host="0.0.0.0", port=int(configDict['flaskPort']), debug=True)
+        hostedApp.run(host="localhost", port=int(
+            configDict['flaskPort']), debug=True)
+    else:
+        serve(app, host='0.0.0.0', port=int(
+            configDict['flaskPort']), url_prefix=appPrefix, threads=1)

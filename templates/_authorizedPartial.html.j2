@@ -38,11 +38,10 @@
     <div id="collapseError" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
         <div class="bg-white py-2 collapse-inner rounded">
         <a class="collapse-item" href="{{url_for('displayrevisionwiseError')}}">RevisionWise Error</a>
-        <a class="collapse-item" href="/">Blockwise Error</a>
+        <a class="collapse-item" href="{{url_for('displayBlockwiseMwError')}}">Blockwise Error</a>
         </div>
     </div>
 </li>
-
 <li class="nav-item ">
     <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePlots" aria-expanded="false" aria-controls="collapsePlots">
         <i class="fas fa-th-large"></i>

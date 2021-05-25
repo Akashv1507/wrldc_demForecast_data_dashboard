@@ -56,4 +56,31 @@
     </div>
 </li>
 
+<li class="nav-item">
+    <a class="nav-link" href="#">
+        <i class="fas fa-th-large"></i>
+        <span>Report Generation</span>
+    </a>
+</li>
+
+<li class="nav-item ">
+    <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapseDemandReplacement" aria-expanded="false" aria-controls="collapseDemandReplacement">
+        <i class="fas fa-th-large"></i>
+        <span>Demand Replacement</span>
+    </a>
+    <div id="collapseDemandReplacement" class="collapse" aria-labelledby="headingForcast" data-parent="#accordionSidebar" style="">
+        <div class="bg-white py-2 collapse-inner rounded">
+        {# plotsController is blueprint name #}
+        <a class="collapse-item" href="{{url_for('demandReplacementController.stagingDemandReplacement')}}">Staging With<br/> Staging</a>
+        <a class="collapse-item" href="#">Staging With<br/> Actual</a>
+        </div>
+    </div>
+</li>
+
+<li class="nav-item">
+    <a class="nav-link" href="{{url_for('excelFileUploadController.excelFileUpload')}}">
+        <i class="fas fa-th-large"></i>
+        <span>Excel Upload</span>
+    </a>
+</li>
 

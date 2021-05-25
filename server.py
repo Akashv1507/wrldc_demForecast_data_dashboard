@@ -13,14 +13,16 @@ from src.fetchers.dfm3RevisionwiseErrorFetcher import Dfm3RevisionwiseErrorFetch
 from src.fetchers.dfm4RevisionwiseErrorFetcher import Dfm4RevisionwiseErrorFetchRepo
 from src.fetchers.blockwiseMwErrorFetcher import BlockwiseMwErrorFetch
 from src.routeControllers.plotsController import plotsController
+from src.routeControllers.demandReplacementController import demandReplacementController
+from src.routeControllers.excelFileUploadController import excelFileUploadController
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime as dt
 from typing import List, Tuple, Union
 from src.appDb import initDb
 from waitress import serve
-from werkzeug.middleware.dispatcher import DispatcherMiddleware
-from werkzeug.exceptions import NotFound
+# from werkzeug.middleware.dispatcher import DispatcherMiddleware
+# from werkzeug.exceptions import NotFound
 from typing import Any, cast
 
 app = Flask(__name__)
@@ -60,6 +62,8 @@ obj_blockwiseMwErrorFetch = BlockwiseMwErrorFetch(conString)
 
 # registering blueprints
 app.register_blueprint(plotsController, url_prefix='/display')
+app.register_blueprint(demandReplacementController)
+app.register_blueprint(excelFileUploadController)
 
 @app.route('/')
 @app.route('/display')
@@ -316,18 +320,10 @@ def displayBlockwiseMwError():
     # in case of get request just return the html template
     return render_template('displayBlockwiseMwError.html.j2', method="GET")
 
-
-hostedApp = Flask(__name__)
-
-cast(Any, hostedApp).wsgi_app = DispatcherMiddleware(NotFound(), {
-    appPrefix: app
-})
-
 if __name__ == '__main__':
     serverMode: str = configDict['mode']
     if serverMode.lower() == 'd':
-        hostedApp.run(host="localhost", port=int(
-            configDict['flaskPort']), debug=True)
+        app.run(host="0.0.0.0", port=int(configDict['flaskPort']), debug=True)
     else:
         serve(app, host='0.0.0.0', port=int(
             configDict['flaskPort']), url_prefix=appPrefix, threads=1)

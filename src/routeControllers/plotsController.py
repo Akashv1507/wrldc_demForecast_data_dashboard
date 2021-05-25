@@ -43,6 +43,7 @@ def intrastatePlots():
 
 
 @plotsController.route('/interstate/plots', methods=['GET', 'POST'])
+@login_required
 def interstatePlots():
     # in case of post req populate div with plots
     if request.method == 'POST':

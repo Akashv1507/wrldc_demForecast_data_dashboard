@@ -13,6 +13,7 @@ scadaApiFetch.py
 demo.bat
 demoBatch.py
 1index.py
+excelFileUploadFolder/
 
 data/
 project_env/

@@ -6,11 +6,11 @@ from src.fetchers.fetchersForPlots.interstateDemandPlotsFetcher import Interstat
 import datetime as dt
 from typing import List, Union
 from flask_login import login_required
-from src.appConfig import getAppConfigDict
+from src.appConfig import loadAppConfig
 
 
 # initializing connection string
-configDict = getAppConfigDict()
+configDict = loadAppConfig()
 conString = configDict['con_string_mis_warehouse']
 
 #making instance of classes

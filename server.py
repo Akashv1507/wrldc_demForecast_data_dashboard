@@ -1,4 +1,4 @@
-from src.appConfig import getAppConfigDict
+from src.appConfig import loadAppConfig
 from flask import Flask, request, jsonify, render_template, redirect, url_for, flash
 from src.utils.mapEntityTagToColumnName import mapEntityTagToColumnName
 from src.utils.generateColumnNameFromEntityList import generateColumnName
@@ -15,6 +15,7 @@ from src.fetchers.blockwiseMwErrorFetcher import BlockwiseMwErrorFetch
 from src.routeControllers.plotsController import plotsController
 from src.routeControllers.demandReplacementController import demandReplacementController
 from src.routeControllers.excelFileUploadController import excelFileUploadController
+from src.routeControllers.generateForecastingReport import reportCreationController
 from flask_bcrypt import Bcrypt
 from flask_login import login_user, current_user, logout_user, login_required
 import datetime as dt
@@ -29,7 +30,7 @@ app = Flask(__name__)
 
 
 # get application config
-configDict = getAppConfigDict()
+configDict = loadAppConfig()
 appPrefix =  configDict['appPrefix']
 #making instance of appDb
 app.config['SECRET_KEY'] = configDict['flaskSecret']
@@ -64,6 +65,7 @@ obj_blockwiseMwErrorFetch = BlockwiseMwErrorFetch(conString)
 app.register_blueprint(plotsController, url_prefix='/display')
 app.register_blueprint(demandReplacementController)
 app.register_blueprint(excelFileUploadController)
+app.register_blueprint(reportCreationController)
 
 @app.route('/')
 @app.route('/display')

@@ -2,11 +2,11 @@ from flask import Blueprint, jsonify, render_template, request
 import datetime as dt
 from typing import List, Union
 from flask_login import login_required
-from src.appConfig import getAppConfigDict
+from src.appConfig import loadAppConfig
 from src.demandReplacement.stagingByStaging import StagingByStagingRepo
 
 # initializing connection string
-configDict = getAppConfigDict()
+configDict = loadAppConfig()
 conString = configDict['con_string_mis_warehouse']
 
 obj_stagingByStagingRepo = StagingByStagingRepo(conString)

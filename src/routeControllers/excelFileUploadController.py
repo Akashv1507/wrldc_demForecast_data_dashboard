@@ -3,13 +3,13 @@ from werkzeug.utils import secure_filename
 import datetime as dt
 from typing import List, Union
 from flask_login import login_required
-from src.appConfig import getAppConfigDict
+from src.appConfig import loadAppConfig
 from src.excelFileUpload.excelFileUpload import ExcelFileUploadRepo
 import pandas as pd 
 import os
 
 # initializing connection string
-configDict = getAppConfigDict()
+configDict = loadAppConfig()
 conString = configDict['con_string_mis_warehouse']
 excleUploadSavePath = configDict['excelFileUploadFolder']
 obj_excelFileUploadRepo = ExcelFileUploadRepo(conString)

@@ -1,4 +1,5 @@
 venv/
+config.json
 config.xlsx
 data_files/
 apiIndex.py

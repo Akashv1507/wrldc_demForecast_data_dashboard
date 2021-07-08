@@ -14,21 +14,21 @@ def mapEntityTagToColumnName(entityTagList:List)->list:
 
     for entityTag in entityTagList:
         if entityTag == "WRLDCMP.SCADA1.A0047000":
-            entityNameList.append('WR_Demand')
+            entityNameList.append('WR_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046980":
-            entityNameList.append('MAH_Demand')
+            entityNameList.append('MAH_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046957":
-            entityNameList.append('Guj_Demand')
+            entityNameList.append('GUJ_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046978":
-            entityNameList.append('MP_Demand')
+            entityNameList.append('MP_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046945":
-            entityNameList.append('Chatt_Demand')
+            entityNameList.append('CHATT_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046962":
-            entityNameList.append('Goa_Demand')
+            entityNameList.append('GOA_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046948":
-            entityNameList.append('DD_Demand')
+            entityNameList.append('DD_DEM')
         elif entityTag == "WRLDCMP.SCADA1.A0046953":
-            entityNameList.append('DNH_Demand')
+            entityNameList.append('DNH_DEM')
     
     return entityNameList
         

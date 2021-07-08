@@ -1,31 +1,30 @@
 .table {
-    color: #140103;
-    font-weight: bold;
+  color: #140103;
+  font-weight: bold;
 }
 
 body {
-    color: #140103;
-    background: #88a3f3;
+  color: #140103;
+  background: #88a3f3;
 }
 
 .sidebar-dark .nav-item .nav-link {
-    color: #f8f9fc;
+  color: #f8f9fc;
 }
 
 .sidebar .nav-item .nav-link span {
-    font-size: .95rem;
-    display: inline;
+  font-size: 0.95rem;
+  display: inline;
 }
 
 thead {
-    box-sizing: border-box;
-    background-color: #5a5c69;
-    color: #f7eeef;
-    white-space: nowrap;
-    display: auto;
-    overflow-x: auto;
+  box-sizing: border-box;
+  background-color: #5a5c69;
+  color: #f7eeef;
+  white-space: nowrap;
+  display: auto;
+  overflow-x: auto;
 }
-
 
 /* thead input {
     padding: 2px;
@@ -36,78 +35,78 @@ thead {
 } */
 
 table.dataTable tbody tr {
-    background-color: #c4d1f8;
+  background-color: #c4d1f8;
 }
 
 table.dataTable.display tbody tr.odd {
-    background-color: #98aef0;
+  background-color: #98aef0;
 }
 
-table.dataTable.display tbody tr.odd>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.odd>.sorting_1 {
-    background-color: #88a3f3;
+table.dataTable.display tbody tr.odd > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.odd > .sorting_1 {
+  background-color: #88a3f3;
 }
 
-table.dataTable.display tbody tr.even>.sorting_1,
-table.dataTable.order-column.stripe tbody tr.even>.sorting_1 {
-    background-color: #c4d1f8;
+table.dataTable.display tbody tr.even > .sorting_1,
+table.dataTable.order-column.stripe tbody tr.even > .sorting_1 {
+  background-color: #c4d1f8;
 }
 
-#displayDemand,
+/* #displayDemand,
 #displayDfm1Forecast,
 #displayDfm2Forecast,
 #displayDfm1RevisionwiseError {
-    white-space: nowrap;
-    display: block;
-    overflow-x: scroll;
-}
+  white-space: nowrap;
+  margin: auto;
+  align-items: center;
+} */
 
 .hrStyle {
-    height: 10px;
-    border: 0;
-    box-shadow: 0 10px 10px -10px #8c8b8b inset;
+  height: 10px;
+  border: 0;
+  box-shadow: 0 10px 10px -10px #8c8b8b inset;
 }
 
 /* for input type = file */
 .file {
-    opacity: 0;
-    width: 0.1px;
-    height: 0.1px;
-    position: absolute;
-  }
-  
-  .file-input label {
-    display: block;
-    position: relative;
-    width: 200px;
-    height: 50px;
-    border-radius: 25px;
-    background: linear-gradient(40deg,#ff6ec4,#7873f5);
-    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-    transition: transform .2s ease-out;
-  }
-  
-  .file-name {
-    position: absolute;
-    bottom: -35px;
-    left: 10px;
-    font-size: 0.85rem;
-    color: #555;
-  }
-  
-  input:hover + label,
-  input:focus + label {
-    transform: scale(1.02);
-  }
-  
-  /* Adding an outline to the label on focus */
-  input:focus + label {
-    outline: 1px solid #000;
-    outline: -webkit-focus-ring-color auto 2px;
-  }
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+}
+
+.file-input label {
+  display: block;
+  position: relative;
+  width: 200px;
+  height: 50px;
+  border-radius: 25px;
+  background: linear-gradient(40deg, #ff6ec4, #7873f5);
+  box-shadow: 0 4px 7px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s ease-out;
+}
+
+.file-name {
+  position: absolute;
+  bottom: -35px;
+  left: 10px;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+input:hover + label,
+input:focus + label {
+  transform: scale(1.02);
+}
+
+/* Adding an outline to the label on focus */
+input:focus + label {
+  outline: 1px solid #000;
+  outline: -webkit-focus-ring-color auto 2px;
+}

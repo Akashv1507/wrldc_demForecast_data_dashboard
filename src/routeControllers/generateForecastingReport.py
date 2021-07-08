@@ -10,7 +10,6 @@ from src.appConfig import loadAppConfig
 configDict = loadAppConfig()
 reportGenerationServiceUrl= configDict['reportGenerationServiceUrl']
 
-
 reportCreationController = Blueprint('reportCreationController', __name__, template_folder='templates')
 
 @reportCreationController.route('/reportGeneration', methods=['GET', 'POST'])

@@ -10,24 +10,24 @@ def generateColumnName(entityTagList:List)->list:
     """   
      
     entityTagList = sorted(entityTagList)
-    entityNameList=['Timestamp', 'Revision_No.']
+    entityNameList=['Timestamp', 'R-No.']
 
     for entityTag in entityTagList:
         if entityTag == "WRLDCMP.SCADA1.A0047000":
-            entityNameList.append('WR_Forecast')
+            entityNameList.append('WR_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046980":
-            entityNameList.append('MAH_Forecast')
+            entityNameList.append('MAH_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046957":
-            entityNameList.append('Guj_Forecast')
+            entityNameList.append('GUJ_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046978":
-            entityNameList.append('MP_Forecast')
+            entityNameList.append('MP_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046945":
-            entityNameList.append('Chatt_Forecast')
+            entityNameList.append('CHATT_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046962":
-            entityNameList.append('Goa_Forecast')
+            entityNameList.append('GOA_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046948":
-            entityNameList.append('DD_Forecast')
+            entityNameList.append('DD_FORE')
         elif entityTag == "WRLDCMP.SCADA1.A0046953":
-            entityNameList.append('DNH_Forecast')
+            entityNameList.append('DNH_FORE')
     
     return entityNameList
